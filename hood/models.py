@@ -16,24 +16,36 @@ class Neighborhood(models.Model):
 
     def __str__(self):
         return f' {self.name} Neighborhood'
-    
-    @classmethod
-    def find_neigborhood(cls,search_term):
-        search_result = cls.objects.filter(business_name__icontains=search_term)
-        return search_result   
 
-    @classmethod
-    def create_neigborhood(cls):
-        cls.save()
 
-    @classmethod
-    def delete_neigborhood(cls, id):
-        delete = cls.objects.filter(id=id).delete()
+    def create_neighborhood(self):
+        self.save()
+
+    def delete_neighborhood(self):
+        self.delete()
                    
     @classmethod
-    def update_occupants(cls,id):
-        occupants = cls.objects.filter(id=id).update()
-        return occupants
+    def find_neighborhood_by_id(cls,id):
+        neighborhood_result = cls.objects.get(id=id)
+        return neighborhood_result
+ 
+    @classmethod
+    def update_occupants(cls,current_value,new_value):
+        fetched_object = cls.objects.filter(count=current_value).update(count=new_value)
+        return fetched_object
+
+    @classmethod
+    def update_neighborhood(cls,current_value,new_value):
+        fetched_object = cls.objects.filter(count=current_value).update(count=new_value)
+        return fetched_object
+
+
+    @classmethod
+    def retrieve_all(cls):
+        all_objects = Neighborhood.objects.all()
+        for item in all_objects:
+            return item
+
 
 class Business(models.Model):
     business_name = models.CharField(max_length=100, unique= True)
@@ -41,24 +53,29 @@ class Business(models.Model):
     business_neighborhood = models.ForeignKey(Neighborhood, null=True)
     business_email = models.EmailField(max_length=100, unique= True) 
     
+    
+    def create_business(self):
+        self.save()
+
+    def delete_business(self):
+        self.delete()
+
+    
+    @classmethod              
+    def find_business_by_id(cls,id):
+        business_result = cls.objects.get(id=id)
+        return business_result
+
+    
     @classmethod
+    def update_business(cls,current_value,new_value):
+        fetched_object = cls.objects.filter(business_name=current_value).update(business_name=new_value)
+        return fetched_object
+
+
     def search_by_business(cls,search_term):
         search_result = cls.objects.filter(business_name__icontains=search_term)
         return search_result   
-
-    @classmethod
-    def create_business(cls, **kwargs):
-        business_location = Neighborhood.objects.get(id=request.user.profile.neighborhood.id)  
-        new_business = Business(business_name=business_name,business_user=request.user,business_neighborhood=business_location,business_email=email)
-        new_business.save()
-    @classmethod
-    def delete_business(cls, id):
-        delete = cls.objects.filter(id=id).delete()
-                   
-    @classmethod
-    def update_business(cls,id):
-        business = cls.objects.filter(id=id).update()
-        return business
 
 
 class Profile(models.Model):
