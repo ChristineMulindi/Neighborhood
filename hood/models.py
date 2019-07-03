@@ -84,3 +84,17 @@ class Profile(models.Model):
         self.save()
 
 
+class Post(models.Model):
+    description =  models.CharField(max_length=70)
+    post_image = models.ImageField(upload_to='images/', null=True,blank=True)
+    categories = models.CharField(max_length=70)
+    time_created =  models.DateTimeField(auto_now=True, null =True)
+    location=models.ForeignKey(Neighborhood)
+    user = models.ForeignKey(User, null=True)
+    user_profile = models.ForeignKey(Profile)
+    
+    def __str__(self):
+        return self.description
+        
+
+
