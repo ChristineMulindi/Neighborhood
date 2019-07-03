@@ -35,12 +35,37 @@ class Neighborhood(models.Model):
         occupants = cls.objects.filter(id=id).update()
         return occupants
 
+class Business(models.Model):
+    business_name = models.CharField(max_length=100, unique= True)
+    business_user = models.ForeignKey(User,on_delete=models.CASCADE)
+    business_neighborhood = models.ForeignKey(Neighborhood, null=True)
+    business_email = models.EmailField(max_length=100, unique= True) 
+    
+    @classmethod
+    def search_by_business(cls,search_term):
+        search_result = cls.objects.filter(business_name__icontains=search_term)
+        return search_result   
 
-    class Profile(models.Model):
+    @classmethod
+    def create_business(cls, **kwargs):
+        business_location = Neighborhood.objects.get(id=request.user.profile.neighborhood.id)  
+        new_business = Business(business_name=business_name,business_user=request.user,business_neighborhood=business_location,business_email=email)
+        new_business.save()
+    @classmethod
+    def delete_business(cls, id):
+        delete = cls.objects.filter(id=id).delete()
+                   
+    @classmethod
+    def update_business(cls,id):
+        business = cls.objects.filter(id=id).update()
+        return business
+
+
+class Profile(models.Model):
     profile_pic = models.ImageField(upload_to = 'images/',default='images/christine.jpg')
     bio = models.TextField()
     user = models.OneToOneField(User,on_delete=models.CASCADE, primary_key=True)
-    neighborhood = models.ForeignKey(Neighbourhood,null=True, related_name='population')
+    neighborhood = models.ForeignKey(Neighborhood,null=True, related_name='population')
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -57,3 +82,5 @@ class Neighborhood(models.Model):
 
     def save_profile(self):
         self.save()
+
+
