@@ -1,0 +1,61 @@
+{%extends "registration/base.html"%}
+{% load bootstrap4 %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <!-- Empty div -->
+        <div class="col-md-3"></div>
+        <div class="col-md-6 ">
+            <div style="font-style: italic; font-weight: bold; font-size: 18px;" class="error ">
+                {% if form.errors %}
+                <p> Some Information Might be Incorrect </p>
+                {% endif %}
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="panel panel-default shadow p-3 mb-5 bg-white rounded">
+                <br>
+                <br>
+                <div class="panel-heading ">
+
+                    <p style="font-style: italic; font-weight: bold; font-size: 45px;" class="text-center">Register
+                    </p>
+                    <br>
+                    <hr>
+                    <p class="text-center"> Are you a member? <a style="text-decoration: none; color:#007E7F;"
+                            href="/accounts/login">Login
+                            now</a>
+                    </p>
+                </div>
+                <hr>
+                <br>
+
+                <div class="panel-body">
+
+                    <form action="/accounts/register/" method="post">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        <br>
+                        <br>
+                        <div class="form-group change">
+                            <input type="submit" class="btn btn-primary btn-lg btn-block"
+                                style="background-color: #007E7F; " value="CREATE YOUR ACCOUNT">
+                        </div>
+
+                        <input type="hidden" name="next" value="{{next}}">
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <!-- empty div -->
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+{% endblock %}
