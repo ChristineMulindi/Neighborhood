@@ -1,0 +1,7 @@
+virtual/
+*.pyc
+instance/
+__pycache__/
+.env
+.vscode/
+media/
