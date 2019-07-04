@@ -3,14 +3,16 @@ from django.contrib.auth.decorators import login_required
 from .models import Neighborhood,Profile,Post
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from .forms import ProfileForm
+from .forms import ProfileForm,NeighborhoodForm
 
 
 # Create your views here.
 
 @login_required(login_url='/accounts/login')
 def home(request):
-    return render(request, 'index.html')
+    hoods = Neighborhood.objects.all()
+    print(hoods)
+    return render(request, 'index.html',{'hoods':hoods})
 
 
 @login_required(login_url='/accounts/login')
@@ -42,5 +44,47 @@ def update_profile(request,id):
     else:
         form = ProfileForm()
     return render(request, 'update_profile.html', {"user": user, "form": form})  
+
+
+@login_required(login_url='/accounts/login')
+def neighborhood(request, id):
+    user = User.objects.get(id=id)
+    current_user = request.user
+    name = Neighborhood.objects.filter(id = id)
+    try:
+        neighborhood = Neighborhood.objects.get(neighborhood_id=id)
+    except ObjectDoesNotExist:
+        return redirect(index_html, current_user.id)   
+    
+    return render(request, 'index.html', {"user":user, "name":name, "neighborhood":neighborhood})
+
+
+
+
+@login_required(login_url='/accounts/login')
+def join(request, id):
+    current_user = request.user
+    form = NeighborhoodForm() 
+    
+    if request.method == 'POST':
+        form = NeighborhoodForm(request.POST, request.FILES)
+        if form.is_valid():
+            neighborhood = form.save(commit=False)
+            print(neighborhood)
+            neighborhood.user_id =id
+            neighborhood.save()
+
+        return redirect(home)
+
+    else:
+        form = NeighborhoodForm()                    
+        
+    return render(request, 'neighborhood.html', {"user": current_user, "form": form})  
+
+
+    
+
+
+
 
 
