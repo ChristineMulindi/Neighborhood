@@ -8,6 +8,10 @@ urlpatterns=[
     url(r'^$',views.home,name = 'home'),
     url(r'^profile/(\d+)', views.profile, name='profile'),
     url(r'^update/profile/(\d+)$', views.update_profile, name='update-profile'),
+    url(r'^join/(\d+)$', views.join, name='join'),
+    url(r'^neighborhood/(\d+)$', views.neighborhood, name='neighborhood'),
+    
+    
     
 ]
 if settings.DEBUG:
