@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from .models import Neighborhood,Profile,Post
+from .models import Neighborhood,Profile,Post,Business
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from .forms import ProfileForm,NeighborhoodForm
+from .forms import ProfileForm,NeighborhoodForm,BusinessForm
 
 
 # Create your views here.
@@ -80,6 +80,38 @@ def join(request, id):
         form = NeighborhoodForm()                    
         
     return render(request, 'neighborhood.html', {"user": current_user, "form": form})  
+
+
+@login_required(login_url='/accounts/login')
+def business(request, id):
+    businesses = Business.objects.all()
+    print(businesses)
+    return render(request, 'business.html',{'businesses':businesses})
+
+
+@login_required(login_url='/accounts/login')
+def add_business(request, id):
+    current_neighborhood = Neighborhood.objects.get(id = id)
+    current_user = request.user
+    form = BusinessForm()   
+    
+    if request.method == 'POST':
+        form = BusinessForm(request.POST, request.FILES)
+        if form.is_valid():
+            business = form.save(commit=False)
+            print(business)
+            business.business_user = current_user
+            business.business_neighborhood = current_neighborhood
+          
+            business.save()
+
+        return redirect(home)
+
+    else:
+        form = BusinessForm()                    
+        
+    return render(request, 'add_business.html', {"user": current_user, "form": form})  
+
 
 
     
