@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile,Neighborhood
+from .models import Profile,Neighborhood,Business
 from django.contrib.auth.models import User
 
 
@@ -13,3 +13,10 @@ class NeighborhoodForm(forms.ModelForm):
     class Meta:
         model = Neighborhood
         fields = [ 'name','location','police','police_department_address','health','health_department_address']
+
+
+class BusinessForm(forms.ModelForm):
+    
+    class Meta:
+        model = Business
+        exclude = [ 'business_user','business_neighborhood']
