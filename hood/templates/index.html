@@ -2,30 +2,31 @@
 {% load bootstrap4 %}
 
 {% block content %}
+
+
 <div class="container">
     <div class="row">
+        {% for hood in hoods %}
         <div class="col-sm-4 col-md-4 col-sm-4">
             <br>
             <br>
             <div class="card  shadow-lg p-3 mb-5 bg-white rounded" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
+                <img class="card-img-top" src='https://cdn.pixabay.com/photo/2017/01/23/16/35/home-2003068_960_720.png'
+                    alt="Card image cap">
+                <br>
                 <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
+                    <p style="color:#007E7F;" class="card-text"><b>{{hood.name}}</b></p>
+                    <p style="color:#007E7F; text-decoration: none;" class="card-text"> <a
+                            style="color:#007E7F; text-decoration: none;" href="{%url 'business' user.id%}"><b>Join
+                                Neighborhood</b>
+                    </p></a>
                 </div>
             </div>
 
         </div>
 
-
-
-
-
-
-
-
-
+        {% endfor %}
     </div>
+
 </div>
 {% endblock %}

@@ -1,0 +1,33 @@
+{%extends 'base.html'%}
+{% load bootstrap4 %}
+
+{% block content %}
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2 col-md-4 "></div>
+        <div class="col-sm-8 col-md-4 col-sm-4; shadow-lg p-3 mb-5 bg-white rounded">
+            <h3 style="font-style: italic; font-weight: bold; font-size: 25px;" class="text-center"> Add Business
+            </h3>
+            <hr>
+            <br>
+            <br>
+
+            <form action="{%url 'add-business' user.id%}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form%}
+                <br>
+                <br>
+                <div style="text-align: center;" class="form-group">
+                    <button class="btn btn-primary btn-lg" style="height:50px; width: 120px;background-color:#004040; text-transform: uppercase;
+                                position: relative; display: inline-block; text-align: center; font-size: 13px;
+                                font-weight: 300; border: none; font-family: sans-serif; "
+                        type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-2 col-md-4"></div>
+    </div>
+</div>
+{% endblock %}

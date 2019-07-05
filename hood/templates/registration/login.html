@@ -9,59 +9,64 @@
 
 {% block content %}
 <div class="container">
-    <div class="row">
-        <!-- Empty div -->
-        <div class="col-md-3">
-        </div>
-        <br>
 
-        <div class="col-md-6">
-            <div style="font-style: italic; font-weight: bold; font-size: 18px;" class="error ">
-                {% if form.errors %}
-                <p> Sorry, your password was incorrect. Please double-check your password. </p>
-                {% endif %}
+    <body style="background-size: cover;"
+        background="https://cdn.pixabay.com/photo/2015/03/26/10/34/houses-691586_960_720.jpg">
+        <div class="row">
+            <!-- Empty div -->
+            <div class="col-md-3">
             </div>
             <br>
-            <br>
-            <div class="panel panel-default shadow p-3 mb-5 bg-white rounded">
 
+            <div class="col-md-6">
+                <div style="font-style: italic; font-weight: bold; font-size: 18px;" class="error ">
+                    {% if form.errors %}
+                    <p> Sorry, your password was incorrect. Please double-check your password. </p>
+                    {% endif %}
+                </div>
                 <br>
-                <div class="panel-heading ">
-                    <p style="font-style: italic; font-weight: bold; font-size: 40px;" class="text-center">Sign in to
-                        continue </p>
+                <br>
+                <div class="panel panel-default shadow p-3 mb-5 bg-white rounded">
+
                     <br>
+                    <div class="panel-heading ">
+                        <p style="font-style: italic; font-weight: bold; font-size: 40px;" class="text-center">Sign in
+                            to
+                            continue </p>
+                        <br>
+                        <hr>
+                        <p class="text-center">Not a memeber yet? <a style="text-decoration: none; color:#007E7F;"
+                                href="/accounts/register">Register Now</a>
+                        </p>
+                    </div>
                     <hr>
-                    <p class="text-center">Not a memeber yet? <a style="text-decoration: none; color:#007E7F;"
-                            href="/accounts/register">Register Now</a>
-                    </p>
+                    <br>
+                    <div class="panel-body">
+
+                        <form action="/accounts/login/" method="post">
+                            {% csrf_token %}
+                            {% bootstrap_form form%}
+                            <br>
+                            <br>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary btn-lg btn-block change"
+                                    style="background-color: #007E7F;" value="LOGIN NOW">
+                            </div>
+
+                            <input type="hidden" name="next" value="{{next}}">
+
+                        </form>
+                    </div>
+
+
                 </div>
-                <hr>
-                <br>
-                <div class="panel-body">
-
-                    <form action="/accounts/login/" method="post">
-                        {% csrf_token %}
-                        {% bootstrap_form form%}
-                        <br>
-                        <br>
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-primary btn-lg btn-block change"
-                                style="background-color: #007E7F;" value="LOGIN NOW">
-                        </div>
-
-                        <input type="hidden" name="next" value="{{next}}">
-
-                    </form>
-                </div>
-
 
             </div>
+            <!-- empty div -->
+            <div class="col-md-3"></div>
 
         </div>
-        <!-- empty div -->
-        <div class="col-md-3"></div>
-
-    </div>
+    </body>
 </div>
 
 {% endblock %}

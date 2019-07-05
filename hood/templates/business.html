@@ -1,0 +1,70 @@
+{%extends "base.html"%}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-sm-3 col-md-3 col-xs-3 ">
+            <div class="card  shadow-lg p-3 mb-5 bg-white rounded">
+                <h1 style="font: bolder; font-size: 20px; text-align: center; color:#007E7F;"></h1>
+                <ul style="text-align: center;" class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <p style="color:#007E7F; text-decoration: none;" class="card-text"> <a
+                                style="color:#007E7F; text-decoration: none;"
+                                href="{%url 'add-business' user.id%}"><b>Add
+                                    Business</b></a></p>
+                    </li>
+                    <li class="list-group-item">
+                        <p style="color:#007E7F; text-decoration: none;" class="card-text">
+
+                            <b>Police Address</b></p>
+
+
+                    </li>
+                    <li class="list-group-item">
+                        <p style="color:#007E7F; text-decoration: none;" class="card-text"> <b>HealthCare
+                                Address</b></a></p>
+
+                    </li>
+
+                    <li class="list-group-item">
+                        <p style="color:#007E7F; text-decoration: none;" class="card-text"> <a
+                                style="color:#007E7F; text-decoration: none;" href="/"><b>Leave Neighborhood</b></a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-xs-6">
+            <div class="card  shadow-lg p-3 mb-5 bg-white rounded">
+                <h1 style="font: bolder; font-size: 20px; text-align: center; color:#007E7F">POSTS</h1>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Cras justo odio</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="col-sm-3 col-md-3 col-xs-3 ">
+            {% for business in businesses %}
+            <div class="card  shadow-lg p-3 mb-5 bg-white rounded ">
+                <h1 style="font: bolder; font-size: 20px; text-align: center; color: #007E7F">BUSINESS AROUND</h1>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <p style="color: #007E7F;"><b>NAME:</b>&nbsp;{{business.business_name}}</p>
+                        <p style="color: #007E7F;"><b>EMAIL:</b>&nbsp;{{business.business_email}}</p>
+                    </li>
+                </ul>
+            </div>
+             {%endfor%}
+        </div>
+      
+    </div>
+
+
+</div>
+{% endblock %}
