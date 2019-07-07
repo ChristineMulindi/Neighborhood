@@ -3,68 +3,96 @@
 
 {% block content %}
 <div class="container">
-    <br>
-    <br>
-    <div class="row">
-        <div class="col-sm-3 col-md-3 col-xs-3 ">
-            <div class="card  shadow-lg p-3 mb-5 bg-white rounded">
-                <h1 style="font: bolder; font-size: 20px; text-align: center; color:#007E7F;"></h1>
-                <ul style="text-align: center;" class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <p style="color:#007E7F; text-decoration: none;" class="card-text"> <a
-                                style="color:#007E7F; text-decoration: none;"
-                                href="{%url 'add-business' user.id%}"><b>Add
-                                    Business</b></a></p>
-                    </li>
-                    <li class="list-group-item">
-                        <p style="color:#007E7F; text-decoration: none;" class="card-text">
 
-                            <b>Police Address</b></p>
+    <body style="background-size: cover;"
+        background="https://cdn.pixabay.com/photo/2015/03/26/10/34/houses-691586_960_720.jpg">
+        <br>
+        <br>
+
+        <div class="row">
+
+            <div class="col-sm-4 col-md-3 col-xs-3 ">
+
+                <div class="card  shadow-lg p-3 mb-5 bg-white rounded">
+                    <h1 style="font: bolder; font-size: 20px; text-align: center; color:#007E7F;"></h1>
+                    <ul style="text-align: left;" class="list-group list-group-flush">
+                       
+                        <li class="list-group-item">
+                            <p style="color:#007E7F; text-decoration: none;" class="card-text"> <a
+                                    style="color:#007E7F; text-decoration: none;"
+                                    href="{%url 'add-business' user.id%}"><b>Add
+                                        Business</b></a></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p style="color:#007E7F; text-decoration: none;" class="card-text"> <a
+                                    style="color:#007E7F; text-decoration: none;" href="{%url 'post' user.id%}"><b>Add
+                                        Post</b></a></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p style="color:#007E7F; text-decoration: none;" class="card-text">
+
+                                <b>Police Address</b></p>
 
 
-                    </li>
-                    <li class="list-group-item">
-                        <p style="color:#007E7F; text-decoration: none;" class="card-text"> <b>HealthCare
-                                Address</b></a></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p style="color:#007E7F; text-decoration: none;" class="card-text"> <b>HealthCare
+                                    Address</b></a></p>
 
-                    </li>
+                        </li>
 
-                    <li class="list-group-item">
-                        <p style="color:#007E7F; text-decoration: none;" class="card-text"> <a
-                                style="color:#007E7F; text-decoration: none;" href="/"><b>Leave Neighborhood</b></a>
-                        </p>
-                    </li>
-                </ul>
+                        <li class="list-group-item">
+                            <p style="color:#007E7F; text-decoration: none;" class="card-text"> <a
+                                    style="color:#007E7F; text-decoration: none;" href="/"><b>Leave Neighborhood</b></a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="col-sm-4 col-md-6 col-xs-6">
+
+                {% for post in posts %}
+                <div class="card  shadow-lg p-3 mb-5 bg-white rounded">
+                    <h1 style="font: bolder; font-size: 30px; text-align: center; color:#007E7F">POST</h1>
+
+                    <ul class="list-group list-group-flush">
+
+
+                        <p><img style="border-radius:30px;width:30px;height:30px; background-color:white;"
+                                class="rounded-circle" src="{{post.user_profile.profile_pic.url }}"> &nbsp;
+                            &nbsp;{{ post.user }}</p>
+
+                        <br>
+                        <li class="list-group-item">{{post.categories}}</li>
+                        <li style="width:30px;height:30px;" class="list-group-item"></li><img
+                            src="{{post.post_image.url}}">
+                        <li class="list-group-item">Description:&nbsp; {{post.description}}</li>
+                        <li class="list-group-item">{{post.time_created}}</li>
+                    </ul>
+
+                </div>
+                {% endfor %}
+            </div>
+
+
+            <div class="col-sm-4 col-md-3 col-xs-3 ">
+                {% for business in businesses %}
+                <div class="card  shadow-lg p-3 mb-5 bg-white rounded ">
+                    <h1 style="font: bolder; font-size: 20px; text-align: center; color: #007E7F">BUSINESS AROUND</h1>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <p style="color: #007E7F;"><b>NAME:</b>&nbsp;{{business.business_name}}</p>
+                            <p style="color: #007E7F;"><b>EMAIL:</b>&nbsp;{{business.business_email}}</p>
+                        </li>
+                    </ul>
+                </div>
+                {%endfor%}
             </div>
 
         </div>
 
-        <div class="col-sm-6 col-md-6 col-xs-6">
-            <div class="card  shadow-lg p-3 mb-5 bg-white rounded">
-                <h1 style="font: bolder; font-size: 20px; text-align: center; color:#007E7F">POSTS</h1>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Cras justo odio</li>
-                </ul>
-            </div>
-        </div>
-
-
-        <div class="col-sm-3 col-md-3 col-xs-3 ">
-            {% for business in businesses %}
-            <div class="card  shadow-lg p-3 mb-5 bg-white rounded ">
-                <h1 style="font: bolder; font-size: 20px; text-align: center; color: #007E7F">BUSINESS AROUND</h1>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <p style="color: #007E7F;"><b>NAME:</b>&nbsp;{{business.business_name}}</p>
-                        <p style="color: #007E7F;"><b>EMAIL:</b>&nbsp;{{business.business_email}}</p>
-                    </li>
-                </ul>
-            </div>
-             {%endfor%}
-        </div>
-      
-    </div>
-
-
+    </body>
 </div>
 {% endblock %}
