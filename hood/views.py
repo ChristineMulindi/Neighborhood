@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Neighborhood,Profile,Post,Business
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from .forms import ProfileForm,NeighborhoodForm,BusinessForm
+from .forms import ProfileForm,NeighborhoodForm,BusinessForm,PostForm
 
 
 # Create your views here.
@@ -11,6 +11,7 @@ from .forms import ProfileForm,NeighborhoodForm,BusinessForm
 @login_required(login_url='/accounts/login')
 def home(request):
     hoods = Neighborhood.objects.all()
+
     print(hoods)
     return render(request, 'index.html',{'hoods':hoods})
 
@@ -74,7 +75,7 @@ def join(request, id):
             neighborhood.user_id =id
             neighborhood.save()
 
-        return redirect(home)
+        return redirect(join)
 
     else:
         form = NeighborhoodForm()                    
@@ -84,9 +85,10 @@ def join(request, id):
 
 @login_required(login_url='/accounts/login')
 def business(request, id):
-    businesses = Business.objects.all()
-    print(businesses)
-    return render(request, 'business.html',{'businesses':businesses})
+    businesses = Business.objects.filter(business_neighborhood_id=id)
+    posts = Post.objects.filter(location_id=id)
+    print(posts)
+    return render(request, 'business.html',{'businesses':businesses,'posts':posts})
 
 
 @login_required(login_url='/accounts/login')
@@ -105,12 +107,40 @@ def add_business(request, id):
           
             business.save()
 
-        return redirect(home)
+        return redirect('business', id)
 
     else:
         form = BusinessForm()                    
         
     return render(request, 'add_business.html', {"user": current_user, "form": form})  
+
+
+
+@login_required(login_url='/accounts/login')
+def post(request, id):
+    profile=Profile.objects.get(user_id=id)
+    current_neighborhood = Neighborhood.objects.get(id = id)
+    current_post = Post.objects.filter(id = id)
+    current_user = request.user
+    form = PostForm()   
+    
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            print(post)
+            post.user = current_user
+            post.user_id =id
+            post.location= Neighborhood.objects.get(id = id)
+            post.user_profile=profile
+            post.save()
+
+        return redirect(home)
+
+    else:
+        form = PostForm()                    
+        
+    return render(request, 'post.html', {"user": current_user, "form": form})  
 
 
 
