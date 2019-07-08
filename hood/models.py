@@ -81,7 +81,7 @@ class Business(models.Model):
 class Profile(models.Model):
     profile_pic = models.ImageField(upload_to = 'images/',default='images/christine.jpg')
     bio = models.TextField()
-    user = models.OneToOneField(User,on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     neighborhood = models.ForeignKey(Neighborhood,null=True, related_name='population')
 
     def __str__(self):
