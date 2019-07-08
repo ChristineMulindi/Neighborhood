@@ -89,6 +89,12 @@ def join(request, id):
 
 @login_required(login_url='/accounts/login')
 def business(request, id):
+    
+    try:
+        neighborhood = Neighborhood.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return redirect(index_html, current_user.id)
+    
     businesses = Business.objects.filter(business_neighborhood_id=id)
     posts = Post.objects.filter(location_id=id)
     hoods = Neighborhood.objects.filter(id=id)
@@ -98,10 +104,16 @@ def business(request, id):
 
 @login_required(login_url='/accounts/login')
 def add_business(request, id):
+    current_user = request.user
+    try:
+        profile = Profile.objects.get(user_id=request.user.id)
+    except ObjectDoesNotExist:
+        return redirect(update_profile, current_user.id)   
     current_neighborhood = Neighborhood.objects.get(id = id)
     print(current_neighborhood)
     current_user = request.user
     form = BusinessForm()   
+    
     
     if request.method == 'POST':
         form = BusinessForm(request.POST, request.FILES)
@@ -125,21 +137,23 @@ def add_business(request, id):
 
 @login_required(login_url='/accounts/login')
 def post(request, id):
-    current_post = Post.objects.filter(id = id)
     current_user = request.user
-    profile=Profile.objects.get(user_id=current_user.id)
+    current_post = Post.objects.filter(id = id)
     current_neighborhood = Neighborhood.objects.get(id = id)
-    
+    try:
+        profile = Profile.objects.get(user_id=request.user.id)
+    except ObjectDoesNotExist:
+        return redirect(update_profile, current_user.id)   
+
     current_user = request.user
     form = PostForm()   
-    
+
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             print(post)
             post.user = current_user
-            post.user_id =request.user.id
             post.location= Neighborhood.objects.get(id = id)
             post.user_profile=profile
             post.save()
