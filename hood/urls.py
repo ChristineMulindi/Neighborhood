@@ -13,8 +13,8 @@ urlpatterns=[
     url(r'^business/(\d+)$', views.business, name='business'),
     url(r'^add/business/(\d+)$', views.add_business, name='add-business'),
     url(r'^post/(\d+)$', views.post, name='post'),
-    
-    
+    url(r'^search/',views.search_results, name='search_results'),
+    url(r'^leave/$', views.leave, name='leave'),
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
