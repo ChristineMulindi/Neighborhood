@@ -17,7 +17,7 @@
                 <br>
                 <br>
 
-                <form action="{%url 'post' user.id%}" method="post" enctype="multipart/form-data">
+                <form action="{%url 'post' current_neighborhood.id%}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% bootstrap_form form%}
                     <br>

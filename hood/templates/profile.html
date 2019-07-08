@@ -6,6 +6,8 @@
 <div class="container">
     <br>
     <div class="row">
+        <br>
+        <br>
 
         <div class="col-sm-4 col-md-4 col-xs-1">
             <div class="media">
@@ -15,35 +17,59 @@
         </div>
 
         <div class="col-sm-6 col-md-4 col-xs-10">
+            
 
             <div class="media-body">
-                <h2 class="account-heading">{{ user.username }}</h2>
+                <h2 style="color: #004040;" class="account-heading">{{ user.username }}</h2>
+                <br>
                 <a style="background-color: #004040; color: white" class="btn btn-outline-info"
-                    href="/update/profile/{{user.id}}">Edit Profile</a>
+                    href="/update/profile/{{hood.id}}">Edit Profile</a>
 
                 <br>
                 <br>
 
-                <p><b>About
-                        me:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;
+                <p style="color: #004040;"><b>About
+                        me:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  
                     {{profile.bio}}
                 </p>
-                <p><b>Location:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{profile.bio}}
-                </p>
-                <p><b>Neighborhood name:</b>&nbsp;&nbsp;&nbsp;{{profile.bio}}</p>
-
+              
 
             </div>
         </div>
     </div>
-
-    <hr>
-    <p style="text-align:center;">YOUR ANNOUNCEMENTS</p>
-    <hr>
     <br>
+    <br>
+    <hr>
+    <p style="text-align:center; color: #007E7F;">YOUR ANNOUNCEMENTS</p>
+    <hr>
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-sm-4 col-sm-4 col-sm-1">
+
+            <div style="height: 104.67%; width:104.67%;" class="card">
+                <img src="{{post.post_image.url}}" class="img-thumbnail" style="height: 240px !important"
+                    data-toggle="modal" data-target="#myModal{{post_image.id}}" alt="" />
+
+
+
+                     <ul style="color: #007E7F;" class="list-group list-group-flush">
+                         
+                         <li class="list-group-item">{{post.categories}}</li>
+                        
+                            
+                         <li class="list-group-item">Description:&nbsp; {{post.description}}</li>
+                         <li class="list-group-item">{{post.time_created}}</li>
+                     </ul>
+            </div>
+
+        </div>
+        {%endfor%}
+    </div>
+
+</div>
 
 
 
 
-    {% endblock %}
+{% endblock %}

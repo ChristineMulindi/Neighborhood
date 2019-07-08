@@ -27,9 +27,9 @@
             </li>
 
         </ul>
-        <form class="form-inline my-2 my-lg-0" role="search" action="/">
+        <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search_results' %}">
             <input style="background-color: white; text-align: center;" class="form-control mr-sm-2" type="text"
-                placeholder="Search" name="searchSite">
+                placeholder="Search" name="business">
             <button class="btn btn-outline-success my-2 my-sm-0" style="background-color:#007E7F; color:white;"
                 type="submit">Search</button>
         </form>

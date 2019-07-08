@@ -1,0 +1,20 @@
+{%extends 'base.html'%}
+{% block content %}
+<div class="container">
+    <br>
+    <br>
+    
+    <div class="row">
+        <div class="col-sm-1 col-md-3 col-xs-1"></div>
+        <div class="col-sm-8 col-md-6 col-xs-1 shadow p-3 mb-5 bg-white rounded">
+
+            {% if businesses%}
+            <h2 style="color:#007E7F;">Found {{ business|length }} of searched businesses {{message}} .</h2>
+            {% else %}
+            <h2 style="color: #007E7F"> Found 0 businesses for the search business {{message}}</h2>
+            {% endif %}
+        </div>
+        <div class="col-sm-1 col-md-3 col-xs-1"></div>
+    </div>
+    {% endblock %}
+</div>
